@@ -110,7 +110,15 @@ Controller `DemoController`
 Views/
 ```
 
+---
 
+### Nhiệm vụ của View
+
+* Cung cấp giao diện người dùng (HTML)
+* Kết hợp **C# Razor** để hiển thị dữ liệu động
+* Không xử lý logic nghiệp vụ phức tạp
+
+```
 
 
 
