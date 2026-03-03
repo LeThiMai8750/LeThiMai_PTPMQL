@@ -11,3 +11,5 @@ obj/
 
 # VS Code
 .vscode/
+webmvc/Controllers/Lamlaib4Controller.cs
+webmvc/Views/Lamlaib4/
