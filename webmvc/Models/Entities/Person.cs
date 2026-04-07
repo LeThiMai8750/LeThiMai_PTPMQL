@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace webmvc.Models.Entities
 {
-    public class Student
+    public class Person
     {
         [Key]
         [Required(ErrorMessage = "Không được để trống")]

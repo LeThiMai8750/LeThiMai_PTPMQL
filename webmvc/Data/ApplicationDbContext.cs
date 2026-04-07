@@ -9,5 +9,6 @@ namespace webmvc.Data
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {}
         public DbSet<Student> Students { get; set; }
+        public DbSet<webmvc.Models.Entities.Person> Person { get; set; } = default!;
     }
 }

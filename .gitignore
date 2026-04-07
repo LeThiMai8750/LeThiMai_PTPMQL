@@ -13,3 +13,6 @@ obj/
 .vscode/
 webmvc/Controllers/Lamlaib4Controller.cs
 webmvc/Views/Lamlaib4/
+webmvc/Controllers/VidumauController.cs
+webmvc/Data/VidumauController
+

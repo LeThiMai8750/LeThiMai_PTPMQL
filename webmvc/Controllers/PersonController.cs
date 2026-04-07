@@ -1,57 +1,71 @@
-using System.Threading.Tasks.Dataflow;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
 using webmvc.Data;
 using webmvc.Models.Entities;
+
 namespace webmvc.Controllers
 {
-    public class StudentController : Controller
+    public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public StudentController(ApplicationDbContext context)
+        public PersonController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Student
+        // GET: Person
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Students.ToListAsync());
+            return View(await _context.Person.ToListAsync());
         }
 
-       
+        // GET: Person/Details/5
+        public async Task<IActionResult> Details(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var person = await _context.Person
+                .FirstOrDefaultAsync(m => m.StudentCode == id);
+            if (person == null)
+            {
+                return NotFound();
+            }
 
-        // GET: Student/Create
+            return View(person);
+        }
+
+        // GET: Person/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Student/Create
+        // POST: Person/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentCode,FullName")] Student student)
-        {//bind : chỉ định atribute nào được phép nhận dữ liệu từ form -> db
+        public async Task<IActionResult> Create([Bind("StudentCode,FullName")] Person person)
+        {
             if (ModelState.IsValid)
             {
-                if (StudentExists(student.StudentCode))
-                {
-                    ModelState.AddModelError("StudentCode", "Ma sinh vien da ton tai");
-                    return View(student);
-                }
-                _context.Add(student);
+                _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(person);
         }
 
-        // GET: Student/Edit/5
+        // GET: Person/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -59,22 +73,22 @@ namespace webmvc.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students.FindAsync(id);
-            if (student == null)
+            var person = await _context.Person.FindAsync(id);
+            if (person == null)
             {
                 return NotFound();
             }
-            return View(student);
+            return View(person);
         }
 
-        // POST: Student/Edit/5
+        // POST: Person/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("StudentCode,FullName")] Student student)
+        public async Task<IActionResult> Edit(string id, [Bind("StudentCode,FullName")] Person person)
         {
-            if (id != student.StudentCode)
+            if (id != person.StudentCode)
             {
                 return NotFound();
             }
@@ -83,12 +97,12 @@ namespace webmvc.Controllers
             {
                 try
                 {
-                    _context.Update(student);
+                    _context.Update(person);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.StudentCode))
+                    if (!PersonExists(person.StudentCode))
                     {
                         return NotFound();
                     }
@@ -99,10 +113,10 @@ namespace webmvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(student);
+            return View(person);
         }
 
-        // GET: Student/Delete/5
+        // GET: Person/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -110,34 +124,34 @@ namespace webmvc.Controllers
                 return NotFound();
             }
 
-            var student = await _context.Students
+            var person = await _context.Person
                 .FirstOrDefaultAsync(m => m.StudentCode == id);
-            if (student == null)
+            if (person == null)
             {
                 return NotFound();
             }
 
-            return View(student);
+            return View(person);
         }
 
-        // POST: Student/Delete/5
+        // POST: Person/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var student = await _context.Students.FindAsync(id);
-            if (student != null)
+            var person = await _context.Person.FindAsync(id);
+            if (person != null)
             {
-                _context.Students.Remove(student);
+                _context.Person.Remove(person);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(string id)
+        private bool PersonExists(string id)
         {
-            return _context.Students.Any(e => e.StudentCode == id);
+            return _context.Person.Any(e => e.StudentCode == id);
         }
     }
 }
