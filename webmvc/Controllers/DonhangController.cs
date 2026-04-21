@@ -7,25 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using webmvc.Data;
 using webmvc.Models.Entities;
+using webmvc.Models.ViewModels;
 
 namespace webmvc.Controllers
 {
-    public class PersonController : Controller
+    public class DonhangController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PersonController(ApplicationDbContext context)
+        public DonhangController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Person
-        public async Task<IActionResult> Index()
+        // GET: Donhang
+        public IActionResult Index()
         {
-            return View(await _context.Person.ToListAsync());
+            var list = _context.Donhangs.Include(d => d.Khachhang).Select(d => new DonHangListVM
+            {
+                Id = d.Madonhang,
+                TenKhachHang = d.Khachhang.TenKhachHang,
+                NgayDat = d.NgayDat
+            })
+            .ToList();
+            return View(list);
         }
 
-        // GET: Person/Details/5
+        // GET: Donhang/Details/5
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -33,39 +41,59 @@ namespace webmvc.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Person
-                .FirstOrDefaultAsync(m => m.StudentCode == id);
-            if (person == null)
+            var donhang = await _context.Donhangs
+                .FirstOrDefaultAsync(m => m.Madonhang == id);
+            if (donhang == null)
             {
                 return NotFound();
             }
 
-            return View(person);
+            return View(donhang);
         }
 
-        // GET: Person/Create
+        // GET: Donhang/Create
         public IActionResult Create()
         {
-            return View();
+            var vm = new CreateDonHangVM();
+            vm.Chitietdhs = new List<Chitietdh>
+            {
+                new Chitietdh()
+            };
+
+
+
+            return View(vm);
         }
 
-        // POST: Person/Create
+        // POST: Donhang/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentCode,FullName")] Person person)
+        public async Task<IActionResult> Create([Bind("Madonhang,NgayDat,MaKhachHang")] Donhang donhang)
         {
+
+            var last = _context.Donhangs
+            .OrderByDescending(d => d.Madonhang)
+            .FirstOrDefault();
+
+            string newId = "DH001"; if (last != null)
+            {
+                int num = int.Parse(last.Madonhang.Substring(2));
+                newId = "DH" + (num + 1).ToString("D3");
+            }
+
+
             if (ModelState.IsValid)
             {
-                _context.Add(person);
+                _context.Add(donhang);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
+            return View(donhang);
         }
 
-        // GET: Person/Edit/5
+        // GET: Donhang/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -73,22 +101,22 @@ namespace webmvc.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Person.FindAsync(id);
-            if (person == null)
+            var donhang = await _context.Donhangs.FindAsync(id);
+            if (donhang == null)
             {
                 return NotFound();
             }
-            return View(person);
+            return View(donhang);
         }
 
-        // POST: Person/Edit/5
+        // POST: Donhang/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("StudentCode,FullName")] Person person)
+        public async Task<IActionResult> Edit(string id, [Bind("Madonhang,NgayDat,MaKhachHang")] Donhang donhang)
         {
-            if (id != person.StudentCode)
+            if (id != donhang.Madonhang)
             {
                 return NotFound();
             }
@@ -97,12 +125,12 @@ namespace webmvc.Controllers
             {
                 try
                 {
-                    _context.Update(person);
+                    _context.Update(donhang);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonExists(person.StudentCode))
+                    if (!DonhangExists(donhang.Madonhang))
                     {
                         return NotFound();
                     }
@@ -113,10 +141,10 @@ namespace webmvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
+            return View(donhang);
         }
 
-        // GET: Person/Delete/5
+        // GET: Donhang/Delete/5
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -124,34 +152,34 @@ namespace webmvc.Controllers
                 return NotFound();
             }
 
-            var person = await _context.Person
-                .FirstOrDefaultAsync(m => m.StudentCode == id);
-            if (person == null)
+            var donhang = await _context.Donhangs
+                .FirstOrDefaultAsync(m => m.Madonhang == id);
+            if (donhang == null)
             {
                 return NotFound();
             }
 
-            return View(person);
+            return View(donhang);
         }
 
-        // POST: Person/Delete/5
+        // POST: Donhang/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var person = await _context.Person.FindAsync(id);
-            if (person != null)
+            var donhang = await _context.Donhangs.FindAsync(id);
+            if (donhang != null)
             {
-                _context.Person.Remove(person);
+                _context.Donhangs.Remove(donhang);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonExists(string id)
+        private bool DonhangExists(string id)
         {
-            return _context.Person.Any(e => e.StudentCode == id);
+            return _context.Donhangs.Any(e => e.Madonhang == id);
         }
     }
 }

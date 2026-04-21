@@ -1,16 +1,17 @@
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 namespace webmvc.Models.Entities
 {
     public class Student
     {
         [Key]
-        [Required(ErrorMessage = "Không được để trống")]
-        [RegularExpression(@"^.{6,}$", ErrorMessage = "Phải có ít nhất 6 ký tự")]
-        public string StudentCode { get; set;}
-        
-        [StringLength(50,ErrorMessage = "Tối đa 50 ký tự")]
-        public string FullName { get; set;}
+        [MinLength(6, ErrorMessage = "Ma sinh vien phai co it nhat 6 ky tu")]
+        public string StudentCode { get; set; } = default!;
+        [Required(ErrorMessage = "Ho va ten khong duoc de trong")]
+        public string FullName { get; set; } = default!;
+        public string? FacultyId { get; set; } 
+        [ForeignKey("FacultyId")]
+        public virtual Faculty? Faculty { get; set; } = default!;
     }
 }
-

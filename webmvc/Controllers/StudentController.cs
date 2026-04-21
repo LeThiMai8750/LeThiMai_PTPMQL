@@ -3,12 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using webmvc.Data;
+using webmvc.Models;
 using webmvc.Models.Entities;
+using webmvc.Models.Process;
+
 namespace webmvc.Controllers
 {
     public class StudentController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private ExcelProcess _excelProcess = new ExcelProcess();
 
         public StudentController(ApplicationDbContext context)
         {
@@ -133,6 +137,52 @@ namespace webmvc.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        // Get upload
+        public async Task<IActionResult> Upload()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upload(IFormFile file)
+        {
+            if(file != null)
+            {   // lấy đuôi file
+                string fileExtension = Path.GetExtension(file.FileName);
+                if(fileExtension != ".xls" && fileExtension != ".xlsx")
+                {
+                    ModelState.AddModelError("", "Vui long chon file excel khac");
+                }
+                else
+                {
+                    var fileName = DateTime.Now.ToShortTimeString() + fileExtension;
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory() + "/Uploads/Excels", fileName);
+                    var fileLocation = new FileInfo(filePath).ToString();
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        // save file to server
+                        await file.CopyToAsync(stream);
+                        // read data from exel file 
+                        var dt = _excelProcess.ReadExcelToDataTable(fileLocation);
+                        //
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            var ps = new Student();
+                            ps.StudentCode = dt.Rows[i]["0"].ToString();
+                            ps.FullName = dt.Rows[i]["1"].ToString();
+                            ps.FacultyId = dt.Rows[i]["2"].ToString();
+                            // add oject to context
+                            _context.Add(ps);
+                        }
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+            }
+
+            return View();
         }
 
         private bool StudentExists(string id)

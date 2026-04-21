@@ -365,3 +365,8 @@ C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\runtimes\win-x64\native\e_sql
 C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\runtimes\win-x86\native\e_sqlite3.dll
 C:\Users\limql\NetCoreAPI\webmvc\obj\Debug\net10.0\webmvc.csproj.AssemblyReference.cache
 C:\Users\limql\NetCoreAPI\webmvc\obj\Debug\net10.0\webmvc.csproj.Up2Date
+C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\EPPlus.dll
+C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\EPPlus.Interfaces.dll
+C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\runtimes\win\lib\net10.0\System.Security.Cryptography.Pkcs.dll

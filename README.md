@@ -119,7 +119,8 @@ Views/
 * Không xử lý logic nghiệp vụ phức tạp
 
 ```
-
+### câu lệnh sinh mã 
+ dotnet aspnet-codegenerator controller -name ChitietdhController -m Chitietdh -dc webmvc.Data.ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --databaseProvider sqlite 
 
 
 
