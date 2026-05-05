@@ -6,6 +6,7 @@ using webmvc.Data;
 using webmvc.Models;
 using webmvc.Models.Entities;
 using webmvc.Models.Process;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace webmvc.Controllers
 {
@@ -31,6 +32,7 @@ namespace webmvc.Controllers
         // GET: Student/Create
         public IActionResult Create()
         {
+            ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName");
             return View();
         }
 
@@ -39,7 +41,7 @@ namespace webmvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StudentCode,FullName")] Student student)
+        public async Task<IActionResult> Create([Bind("StudentCode,FullName,FacultyId")] Student student)
         {//bind : chỉ định atribute nào được phép nhận dữ liệu từ form -> db
             if (ModelState.IsValid)
             {
@@ -52,6 +54,7 @@ namespace webmvc.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName", student.FacultyId );
             return View(student);
         }
 
@@ -68,6 +71,7 @@ namespace webmvc.Controllers
             {
                 return NotFound();
             }
+             ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName", student.FacultyId );
             return View(student);
         }
 
@@ -76,7 +80,7 @@ namespace webmvc.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("StudentCode,FullName")] Student student)
+        public async Task<IActionResult> Edit(string id, [Bind("StudentCode,FullName, FacultyId")] Student student)
         {
             if (id != student.StudentCode)
             {
@@ -103,7 +107,9 @@ namespace webmvc.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+                        ViewData["FacultyId"] = new SelectList(_context.Faculties, "FacultyId", "FacultyName", student.FacultyId );
             return View(student);
+     
         }
 
         // GET: Student/Delete/5
