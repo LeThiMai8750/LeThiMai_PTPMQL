@@ -120,7 +120,7 @@ Views/
 
 ```
 ### câu lệnh sinh mã 
- dotnet aspnet-codegenerator controller -name ChitietdhController -m Chitietdh -dc webmvc.Data.ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --databaseProvider sqlite 
+ dotnet aspnet-codegenerator controller -name DepartmentController -m Department -dc webmvc.Data.ApplicationDbContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries --databaseProvider sqlite 
 
 
 

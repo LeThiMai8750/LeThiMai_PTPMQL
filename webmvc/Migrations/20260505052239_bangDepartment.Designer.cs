@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webmvc.Data;
 
@@ -10,12 +11,56 @@ using webmvc.Data;
 namespace webmvc.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260505052239_bangDepartment")]
+    partial class bangDepartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.3");
+
+            modelBuilder.Entity("Department", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("TenPhong")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+                });
+
+            modelBuilder.Entity("Person", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ten")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TenPhong")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Persons");
+                });
 
             modelBuilder.Entity("webmvc.Models.Entities.Chitietdh", b =>
                 {
@@ -52,20 +97,6 @@ namespace webmvc.Migrations
                     b.HasIndex("SanphamMasanpham");
 
                     b.ToTable("Chitietdhs");
-                });
-
-            modelBuilder.Entity("webmvc.Models.Entities.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("TenPhong")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("webmvc.Models.Entities.Donhang", b =>
@@ -124,32 +155,6 @@ namespace webmvc.Migrations
                     b.ToTable("Khachhangs");
                 });
 
-            modelBuilder.Entity("webmvc.Models.Entities.Person", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("DepartmentId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Ten")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("TenPhong")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Persons");
-                });
-
             modelBuilder.Entity("webmvc.Models.Entities.Sanpham", b =>
                 {
                     b.Property<string>("Masanpham")
@@ -189,6 +194,15 @@ namespace webmvc.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("Person", b =>
+                {
+                    b.HasOne("Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId");
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("webmvc.Models.Entities.Chitietdh", b =>
                 {
                     b.HasOne("webmvc.Models.Entities.Donhang", "Donhang")
@@ -219,15 +233,6 @@ namespace webmvc.Migrations
                     b.Navigation("Khachhang");
                 });
 
-            modelBuilder.Entity("webmvc.Models.Entities.Person", b =>
-                {
-                    b.HasOne("webmvc.Models.Entities.Department", "Department")
-                        .WithMany("Persons")
-                        .HasForeignKey("DepartmentId");
-
-                    b.Navigation("Department");
-                });
-
             modelBuilder.Entity("webmvc.Models.Entities.Student", b =>
                 {
                     b.HasOne("webmvc.Models.Entities.Faculty", "Faculty")
@@ -235,11 +240,6 @@ namespace webmvc.Migrations
                         .HasForeignKey("FacultyId");
 
                     b.Navigation("Faculty");
-                });
-
-            modelBuilder.Entity("webmvc.Models.Entities.Department", b =>
-                {
-                    b.Navigation("Persons");
                 });
 
             modelBuilder.Entity("webmvc.Models.Entities.Donhang", b =>
