@@ -1,0 +1,149 @@
+@model webmvc.Models.ViewModels.StockinVM
+
+<form asp-action="Create" method="post">
+
+    <div>
+        <label>Ngày nhập</label>
+
+        <input asp-for="OrderDate" type="date" />
+    </div>
+
+    <h4>Thiết bị</h4>
+
+    <table class="table" id="equipmentTable">
+
+        <tr>
+
+            <th>Loại thiết bị</th>
+
+            <th>Thiết bị</th>
+
+            <th>Số lượng</th>
+
+            <th>Đơn giá nhập</th>
+
+            <th></th>
+
+        </tr>
+
+    </table>
+
+    <button type="button" onclick="addRow()">
+        Thêm thiết bị
+    </button>
+
+    <br />
+
+    <button type="submit">
+        Lưu
+    </button>
+
+</form>
+<script>
+
+    let index = 0;
+
+    function addRow()
+    {
+        let row = `
+
+        <tr>
+
+            <td>
+
+                <select name="StockindtVMs[${index}].DeviceTypeId">
+
+                    ${getDeviceTypes()}
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <select name="StockindtVMs[${index}].EquipmentId">
+
+                    ${getEquipments()}
+
+                </select>
+
+            </td>
+
+            <td>
+
+                <input name="StockindtVMs[${index}].Quantity"
+                       type="number"
+                       value="1"/>
+
+            </td>
+
+            <td>
+
+                <input name="StockindtVMs[${index}].ImportPrice"
+                       type="number"
+                       value="0"/>
+
+            </td>
+
+            <td>
+
+                <button type="button"
+                        onclick="this.closest('tr').remove()">
+
+                    Xóa
+
+                </button>
+
+            </td>
+
+        </tr>`;
+
+        document.getElementById("equipmentTable")
+                .insertAdjacentHTML("beforeend", row);
+
+        index++;
+    }
+
+    function getDeviceTypes()
+    {
+        let options = '';
+
+        @foreach(var d in ViewBag.DeviceTypes)
+        {
+            <text>
+
+                options += `
+                <option value="@d.DeviceTypeId">
+
+                    @d.DeviceTypeName
+
+                </option>`;
+
+            </text>
+        }
+
+        return options;
+    }
+
+    function getEquipments()
+    {
+        let options = '';
+
+        @foreach(var p in ViewBag.Equipments)
+        {
+            <text>
+
+                options += `
+                <option value="@p.Id">
+
+                    @p.EquipmentName
+
+                </option>`;
+
+            </text>
+        }
+
+        return options;
+    }
+
+</script>

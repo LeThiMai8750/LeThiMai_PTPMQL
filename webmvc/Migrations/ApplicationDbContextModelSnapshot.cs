@@ -17,6 +17,144 @@ namespace webmvc.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.3");
 
+            modelBuilder.Entity("webmvc.Models.Buoi12.Devicetype", b =>
+                {
+                    b.Property<int>("DevicetypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DevicetypeName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("DevicetypeId");
+
+                    b.ToTable("Devicetypes");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Equipment", b =>
+                {
+                    b.Property<int>("EquipmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("DevicetypeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EquipmentName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("EquipmentId");
+
+                    b.HasIndex("DevicetypeId");
+
+                    b.ToTable("Equipments");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockin", b =>
+                {
+                    b.Property<int>("StockinId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OrderTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StockinId");
+
+                    b.ToTable("Stockins");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockindt", b =>
+                {
+                    b.Property<int>("StockindtId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EquipmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StockinId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StockindtId");
+
+                    b.HasIndex("EquipmentId");
+
+                    b.HasIndex("StockinId");
+
+                    b.ToTable("Stockindts");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockout", b =>
+                {
+                    b.Property<int>("StockoutId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("OrderTime")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("StockoutId");
+
+                    b.ToTable("Stockouts");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockoutdt", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EquipmentId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("StockoutId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipmentId");
+
+                    b.HasIndex("StockoutId");
+
+                    b.ToTable("Stockoutdts");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Suplier", b =>
+                {
+                    b.Property<int>("SuplierId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SuplierName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SuplierId");
+
+                    b.ToTable("Supliers");
+                });
+
             modelBuilder.Entity("webmvc.Models.Entities.Chitietdh", b =>
                 {
                     b.Property<int>("Id")
@@ -189,6 +327,55 @@ namespace webmvc.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("webmvc.Models.Buoi12.Equipment", b =>
+                {
+                    b.HasOne("webmvc.Models.Buoi12.Devicetype", "Devicetype")
+                        .WithMany("Equipments")
+                        .HasForeignKey("DevicetypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Devicetype");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockindt", b =>
+                {
+                    b.HasOne("webmvc.Models.Buoi12.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webmvc.Models.Buoi12.Stockin", "Stockin")
+                        .WithMany("Stockindts")
+                        .HasForeignKey("StockinId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Equipment");
+
+                    b.Navigation("Stockin");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockoutdt", b =>
+                {
+                    b.HasOne("webmvc.Models.Buoi12.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("webmvc.Models.Buoi12.Stockout", "Stockout")
+                        .WithMany("Stockoutdts")
+                        .HasForeignKey("StockoutId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Equipment");
+
+                    b.Navigation("Stockout");
+                });
+
             modelBuilder.Entity("webmvc.Models.Entities.Chitietdh", b =>
                 {
                     b.HasOne("webmvc.Models.Entities.Donhang", "Donhang")
@@ -235,6 +422,21 @@ namespace webmvc.Migrations
                         .HasForeignKey("FacultyId");
 
                     b.Navigation("Faculty");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Devicetype", b =>
+                {
+                    b.Navigation("Equipments");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockin", b =>
+                {
+                    b.Navigation("Stockindts");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Buoi12.Stockout", b =>
+                {
+                    b.Navigation("Stockoutdts");
                 });
 
             modelBuilder.Entity("webmvc.Models.Entities.Department", b =>

@@ -1,0 +1,53 @@
+@model IEnumerable<webmvc.Models.Buoi12.Stockindt>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stockin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Equipment)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stockin.StockinId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipment.EquipmentName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.StockindtId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StockindtId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StockindtId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
