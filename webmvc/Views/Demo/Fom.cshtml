@@ -1,0 +1,37 @@
+<h2>Form nhập dữ liệu</h2>
+<form asp-action="Fom" method="Post" enctype="multipart/form-data">
+    <div>
+        <label> Tác giả : </label>
+        <input type="text" name="fullname"/> <br />
+    </div>
+    <div>
+        <label >Tác phẩm: </label>
+        <input type="file" name = "tacpham" /> <br />
+    </div>
+
+    <button type="submit" >Gửi</button>
+</form>
+
+<hr />
+<h2> Hiển thị dữ liệu
+</h2>
+@if(ViewBag.Error != null)
+{
+    <p>@ViewBag.Error</p>
+}
+@* @if(ViewBag.Name != null)
+{
+    <p>Tên Tác giả: @ViewBag.Name</p>
+
+} *@
+@if(ViewBag.Images != null)
+{
+  
+        <p>Tên Tác giả: @ViewBag.Name</p>
+        <img src="@ViewBag.Images"
+         width="200" />
+        <br />
+    
+
+}
+

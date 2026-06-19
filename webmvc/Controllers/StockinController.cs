@@ -84,6 +84,7 @@ namespace webmvc.Controllers
             {
                 var detail = new Stockindt
                 {
+                    //DevicetypeId = item.DevicetypeId,
                     EquipmentId = item.EquipmentId,
                     UnitPrice = item.ImportPrice,
                     Quantity = item.Quantity,

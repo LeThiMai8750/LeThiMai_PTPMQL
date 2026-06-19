@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using webmvc.Models;
 using webmvc.Models.Buoi12;
+using webmvc.Models.Buoi13;
 using webmvc.Models.Entities;
+using webmvc.Models.Demo;
 
 namespace webmvc.Data
 {
@@ -26,5 +28,10 @@ namespace webmvc.Data
         public DbSet<Stockindt> Stockindts{ get; set; }
         public DbSet<Stockout> Stockouts{ get; set; }
         public DbSet<Stockoutdt> Stockoutdts{ get; set; }
+        //Buoi 13
+        public DbSet<Book> Books{ get; set; }
+        // Demo
+        public DbSet<Author> Author{ get; set; }
+        public DbSet<Picture> Picture{ get; set; }
     }
 }

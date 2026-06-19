@@ -1,0 +1,19 @@
+@model webmvc.Models.ViewModels.ArtVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+<h2>@Model.Name</h2>
+
+@foreach(var pic in Model.Pictures)
+{
+    <img src="@pic.ImagePath" width="100" />
+}
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

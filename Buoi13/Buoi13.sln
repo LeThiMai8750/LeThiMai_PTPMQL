@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PTPMQL", "PTPMQL", "{4AA5CC2E-3225-C851-1EF0-0EA792514049}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoMVC", "PTPMQL\DemoMVC\DemoMVC.csproj", "{A55D88B3-2F17-2EEF-7744-E40BB52B1FDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A55D88B3-2F17-2EEF-7744-E40BB52B1FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55D88B3-2F17-2EEF-7744-E40BB52B1FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55D88B3-2F17-2EEF-7744-E40BB52B1FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55D88B3-2F17-2EEF-7744-E40BB52B1FDC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A55D88B3-2F17-2EEF-7744-E40BB52B1FDC} = {4AA5CC2E-3225-C851-1EF0-0EA792514049}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {40E02C42-16AE-49A5-93C0-CBD1D91D4084}
+	EndGlobalSection
+EndGlobal

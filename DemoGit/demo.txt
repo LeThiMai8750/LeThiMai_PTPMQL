@@ -1,1 +1,27 @@
-nội dung đầu tiên
+
+lấy mã nguồn từ GitHub
+tải hoặc copy về 
+b3: chạy
+Cách debug nè: 
+chạy từng bước F10
+xem lỗi ở trang nào : kích chuột phải + F12
+
+Xây dựng get data 
+B1: Khối dữ liệu (The model) - cái thùng chứa
+Bất kể bạn quản lý cái gì , khi phân trang bạn cần 4 thông tin sau :
+	- Danh sách món hàng
+	- Trang hiện tại
+	- Tổng số trang
+	- Số hàng mỗi trang
+*Lưu ý : có thể tạo 1 class PagedResult<T> dùng chung cho cả dự án
+B2: Khối xử lý (Action) - 3 nhát cắt
+Trong controller dù sách hay gì đi nữa , bạn luôn thực hiện theo 3 nhát cắt theo đúng thứ tự này :
+	- Nhát 1: Sắp xếp  OrderBy (Muốn xem cái nào trước?).
+	- Nhát 2 - Đếm: CountAsync (Tổng cộng có bao nhiêu cái?).
+	- Nhát 3 - Lấy đúng phần: Skip (Bỏ qua những trang trước) và Take (Lấy số lượng trang này). Công thức vàng: Skip = (Số trang - 1) * Số lượng mỗi trang.
+B3: Khối hiển thị (View) - Cái khung
+ Giao diện luôn gồm 2 phần tách biệt:
+
+	- Cái Bảng: Chạy vòng lặp hiện danh sách.
+
+	- Thanh Phân trang: Các nút số 1, 2, 3... dựa trên tổng số trang

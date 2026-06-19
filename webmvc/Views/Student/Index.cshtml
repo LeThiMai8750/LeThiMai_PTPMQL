@@ -1,46 +1,42 @@
 @model IEnumerable<webmvc.Models.Entities.Student>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý Sinh viên";
 }
 
-<h1>Hiển thị bảng dữ liệu của Students</h1>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0"><i class="fas fa-university"></i> Quản lý Danh sách Sinh viên</h4>
+            <!-- Nút mở Form Thêm mới -->
+            <button class="btn btn-light fw-bold" id="btnAddStudent">
+                <i class="fas fa-plus-circle text-primary"></i> Thêm sinh viên mới
+            </button>
+        </div>
+        <div class="card-body">
+            <!-- NƠI CHỨA PARTIAL VIEW (_StudentTable.cshtml) -->
+            <!-- AJAX trong student.js sẽ tự động nạp bảng HTML vào đây -->
+            <div id="studentTableContainer">
+                <div class="text-center p-4">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Đang tải dữ liệu hệ thống...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
 
-<p><a asp-action="Create">Create New</a></p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.StudentCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FullName)
-            </th>
-            <th>
-                @Html.DisplayNameFor( model => model.Faculty )
-            </th>
-            <th>Action</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StudentCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullName)
-                </td>
-                <td>
-                    @Html.DisplayFor( modelItem => item.Faculty)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.StudentCode">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.StudentCode">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.StudentCode">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+@* <div class="container mt-4">
+    <h2>Student Management</h2>
+    <div id="studentTableContainer">
+    </div>
+</div> *@
+<div id="modalContainer"></div>
+@section Scripts {
+    <!-- Nhúng file xử lý AJAX CRUD đã viết ở bước trước -->
+    <script src="~/js/student/student.js"></script>
+     <script src="~/js/student/student_table0.js"></script>
+    <script src="~/js/student/student_create.js"></script>
+
+}

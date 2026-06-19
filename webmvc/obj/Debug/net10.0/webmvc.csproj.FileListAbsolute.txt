@@ -370,3 +370,8 @@ C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\EPPlus.Interfaces.dll
 C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\Microsoft.IO.RecyclableMemoryStream.dll
 C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\runtimes\win\lib\net10.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\limql\NetCoreAPI\webmvc\bin\Debug\net10.0\Bogus.dll
+C:\Users\limql\NetCoreAPI\webmvc\obj\Debug\net10.0\compressed\wvgj6atfbk-{0}-s731w0l4ev-s731w0l4ev.gz
+C:\Users\limql\NetCoreAPI\webmvc\obj\Debug\net10.0\compressed\8os1vznktp-{0}-77qoij2umw-77qoij2umw.gz
+C:\Users\limql\NetCoreAPI\webmvc\obj\Debug\net10.0\compressed\z73olwpniv-{0}-51mnu9tqw3-51mnu9tqw3.gz
+C:\Users\limql\NetCoreAPI\webmvc\obj\Debug\net10.0\compressed\hmyxp5lkni-{0}-urvbyrjbqb-urvbyrjbqb.gz

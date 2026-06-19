@@ -1,0 +1,63 @@
+@model webmvc.Models.Entities.Student
+
+
+<div class="modal fade" id="studentModal"  tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white" id="modalHeader">
+                <label  class="form-label fw-bold">Thêm sinh viên</label>
+                @* <h5 class="modal-title" id="modalTitle">Thêm Sinh viên</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button> *@
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            </div>
+            
+            <div class="modal-body">
+                
+                <!-- Form gửi dữ liệu bằng AJAX -->
+                <form id="studentForm">
+                    <!-- Cơ chế bảo mật bắt buộc của ASP.NET Core -->
+                    @Html.AntiForgeryToken()
+
+                    <!-- Ẩn biến check chế độ: false = Thêm mới, true = Sửa -->
+                    <input type="hidden" id="isEditMode" value="false" />
+
+                    <!-- Ô nhập Mã sinh viên -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mã Sinh viên</label>
+                        <input type="text" class="form-control" id="StudentCode" name="StudentCode" placeholder="Nhập ít nhất 6 ký tự..." required />
+                    </div>
+
+                    <!-- Ô nhập Họ và Tên -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Họ và Tên</label>
+                        <input type="text" class="form-control" id="FullName" name="FullName" placeholder="Nhập đầy đủ họ tên..." required />
+                    </div>
+
+                    <!-- Dropdown chọn Khoa -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Khoa </label>
+                        <select class="form-control" id="FacultyId" name="FacultyId">
+                            <option value="">-- Chọn Khoa  --</option>
+                            @if (ViewBag.Faculties != null)
+                            {
+                                foreach (var faculty in ViewBag.Faculties)
+                                {
+                                    <option value="@faculty.FacultyId">@faculty.FacultyName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                    <div class="modal-footer px-0 pb-0 pt-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-success" >Lưu lại</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

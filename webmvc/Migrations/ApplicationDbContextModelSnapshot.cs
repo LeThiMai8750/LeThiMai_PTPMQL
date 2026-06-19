@@ -155,6 +155,93 @@ namespace webmvc.Migrations
                     b.ToTable("Supliers");
                 });
 
+            modelBuilder.Entity("webmvc.Models.Buoi13.Book", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Author")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Categories")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("PublishYear")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Demo.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Annotation")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Author");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Demo.Picture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Picture");
+                });
+
             modelBuilder.Entity("webmvc.Models.Entities.Chitietdh", b =>
                 {
                     b.Property<int>("Id")
@@ -376,6 +463,17 @@ namespace webmvc.Migrations
                     b.Navigation("Stockout");
                 });
 
+            modelBuilder.Entity("webmvc.Models.Demo.Picture", b =>
+                {
+                    b.HasOne("webmvc.Models.Demo.Author", "Author")
+                        .WithMany("Pictures")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
             modelBuilder.Entity("webmvc.Models.Entities.Chitietdh", b =>
                 {
                     b.HasOne("webmvc.Models.Entities.Donhang", "Donhang")
@@ -437,6 +535,11 @@ namespace webmvc.Migrations
             modelBuilder.Entity("webmvc.Models.Buoi12.Stockout", b =>
                 {
                     b.Navigation("Stockoutdts");
+                });
+
+            modelBuilder.Entity("webmvc.Models.Demo.Author", b =>
+                {
+                    b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("webmvc.Models.Entities.Department", b =>
