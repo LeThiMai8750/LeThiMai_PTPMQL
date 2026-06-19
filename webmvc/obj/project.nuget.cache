@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "LFal7YaUNgI=",
+  "dgSpecHash": "gavVX8SA5sk=",
   "success": true,
   "projectFilePath": "C:\\Users\\limql\\NetCoreAPI\\webmvc\\webmvc.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\limql\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\bogus\\35.6.5\\bogus.35.6.5.nupkg.sha512",
-    "C:\\Users\\limql\\.nuget\\packages\\epplus\\8.5.3\\epplus.8.5.3.nupkg.sha512",
+    "C:\\Users\\limql\\.nuget\\packages\\epplus\\8.6.1\\epplus.8.6.1.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\epplus.interfaces\\8.4.0\\epplus.interfaces.8.4.0.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
@@ -138,7 +138,7 @@
     "C:\\Users\\limql\\.nuget\\packages\\system.identitymodel.tokens.jwt\\7.7.1\\system.identitymodel.tokens.jwt.7.7.1.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\system.memory.data\\8.0.1\\system.memory.data.8.0.1.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\system.reflection.metadataloadcontext\\8.0.0\\system.reflection.metadataloadcontext.8.0.0.nupkg.sha512",
-    "C:\\Users\\limql\\.nuget\\packages\\system.security.cryptography.pkcs\\10.0.6\\system.security.cryptography.pkcs.10.0.6.nupkg.sha512",
+    "C:\\Users\\limql\\.nuget\\packages\\system.security.cryptography.pkcs\\10.0.7\\system.security.cryptography.pkcs.10.0.7.nupkg.sha512",
     "C:\\Users\\limql\\.nuget\\packages\\system.security.cryptography.protecteddata\\9.0.6\\system.security.cryptography.protecteddata.9.0.6.nupkg.sha512"
   ],
   "logs": [

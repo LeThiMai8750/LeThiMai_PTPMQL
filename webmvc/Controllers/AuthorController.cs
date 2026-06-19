@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using webmvc.Data;
 using webmvc.Models.Demo;
 using webmvc.Models.ViewModels;
+using OfficeOpenXml;
 
 namespace webmvc.Controllers
 {
@@ -150,9 +152,75 @@ namespace webmvc.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        // Get Import files
+         public IActionResult Import()
+        {
+            return View();
+        }
+
+        //
+        [HttpPost]
+        public async Task<IActionResult> Import(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+            {
+                ModelState.AddModelError("file", "File không được để trống");
+                return View();
+            }
+           // đọc file
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    file.CopyTo(stream);
+
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet =
+                            package.Workbook.Worksheets[0];
+
+                        int rowCount =
+                            worksheet.Dimension.Rows;
+
+                        for (int row = 2; row <= rowCount; row++)
+                        {
+                            string name =
+                                worksheet.Cells[row, 1].Text;
+
+                            string annotation =
+                                worksheet.Cells[row, 2].Text;
+
+                            Author author =
+                                new Author
+                                {
+                                    Name = name,
+                                    Annotation = annotation
+                                };
+
+                            _context.Author.Add(author);
+                        }
+
+                        _context.SaveChanges();
+                    }
+                }
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+
+                return View();
+            }
+                    }
+
+        
+        
         private bool AuthorExists(int id)
         {
             return _context.Author.Any(e => e.Id == id);
         }
     }
 }
+

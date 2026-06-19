@@ -3,7 +3,7 @@ using OfficeOpenXml;
 using webmvc.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-ExcelPackage.License.SetNonCommercialPersonal("MaiLe");
+ExcelPackage.License.SetNonCommercialPersonal("Le Mai");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(
         builder.Configuration.GetConnectionString("DefaultConnection"))); 

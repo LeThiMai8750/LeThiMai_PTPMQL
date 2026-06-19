@@ -348,6 +348,30 @@ Tạo post delete
 
 </details>
 
+# Upload file excel 
+<detail> 
+<summary> Các bước thực hiện Upload file excel cho db Author </summary>
+
+## Tạo View Import.cshtml 
+Tạo form upload : asp-action là Import , method Post , enctype ...file
+- thẻ input (file) 
+- thẻ submit
+- thẻ điều hướng
+
+## Tạo Action get Import
+Tạo mở form 
+
+## Tạo Action post Import
+Tạo nhận form có tham số IFormFile file
+Import file Excel + lưu db:
+- Kiểm tra file nếu == null || == file.Length == 0 thì
+    ModelState.AddModelError(key, errorMessage);
+    trả về dl sang view 
+- Đọc dữ liệu và lưu
+ 
+
+
+</detail>
 
 
 ```
